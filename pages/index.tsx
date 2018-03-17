@@ -10,10 +10,6 @@ interface state {
 }
 
 export default class Index extends React.Component<props, state> {
-  static getInitialProps() {
-    return {title: 'Hello, world!'}
-  }
-
   state = {
     eventName: ''
   }
@@ -28,8 +24,8 @@ export default class Index extends React.Component<props, state> {
         {this.props.title}
         <input onChange={this.handleChange} value={this.state.eventName}/>
         EventName: {this.state.eventName}
-        <Link href="/about">
-          <a>About</a>
+        <Link href="/admin">
+          <a>Admin</a>
         </Link>
       </div>
     )
