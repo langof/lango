@@ -7,7 +7,7 @@ interface props {
 
 interface state {
   eventName: string
-  eventInfo: { code: string }
+  eventInfo: string[]
 }
 
 export default class Event extends React.Component<props, state> {
@@ -19,19 +19,19 @@ export default class Event extends React.Component<props, state> {
 
   state = {
     eventName: '',
-    eventInfo: {code: ''}
+    eventInfo: []
   }
 
   componentDidMount() {
     DB.ref('/eventInfo').on('value', (snap) => {
-      this.setState({eventInfo: snap.val()});
-    });
+      this.setState({eventInfo: Object.values(snap.val())});
+    })
   }
 
   render() {
     return (
       <div>
-        {Object.keys(this.state.eventInfo).map(event => (<h5 key={event}>{this.state.eventInfo[event].code}</h5>))}
+        {this.state.eventInfo.map(({code}) => (<h5 key={code}>{code}</h5>))}
       </div>
     )
   }
