@@ -38,6 +38,7 @@ export default class Admin extends React.Component<props, state> {
 
 	async componentDidMount() {
     const eventCode = window.location.hash.slice(1)
+    if (!eventCode) window.location.replace('/')
 
     const recognition = await getSpeechRecognitionObject()
     recognition.interimResults = true
@@ -67,8 +68,8 @@ export default class Admin extends React.Component<props, state> {
   render() {
     const { originLang, translatedLang, speech, translated } = this.state
     return (
-      <div>
-        <div style={{ position: 'relative'}}>
+      <div style={{display: 'grid', gridTemplateColumns: 'auto auto' }}>
+        <div>
           <select name='originLang' onChange={this.handleChangeLanguage} value={originLang}>
             {languages.map((language) => (<option value={language.code}>{language.icon} {language.text}</option>))}
             <option value='en'>English</option>
