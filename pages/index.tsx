@@ -37,7 +37,7 @@ export default class Index extends React.Component<props, state> {
       <div>
         {this.props.title}
         <input onChange={this.handleChange} value={this.state.eventCode}/>
-        <Link href="/admin">
+        <Link href={`/admin/#${this.state.eventCode}`}>
           <a>Admin</a>
         </Link>
       </div>
