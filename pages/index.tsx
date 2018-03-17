@@ -4,20 +4,22 @@ import Link from 'next/link'
 interface props {
   title: string
 }
+
 interface state {
   eventName: string
 }
+
 export default class Index extends React.Component<props, state> {
-  static getInitialProps({ req }) {
-    return { title: 'Hello, world!' }
+  static getInitialProps() {
+    return {title: 'Hello, world!'}
   }
 
   state = {
     eventName: ''
   }
 
-  handleChange = ({ target: { value }}) => {
-    this.setState({ eventName: value })
+  handleChange = ({target: {value}}) => {
+    this.setState({eventName: value})
   }
 
   render() {

@@ -1,47 +1,38 @@
 import * as React from 'react'
-import { DB } from '../firebase'
+import {DB} from '../utils/firebase'
 
 interface props {
-	title: string
+  title: string
 }
+
 interface state {
-	eventName: string
-	eventInfo: string
+  eventName: string
+  eventInfo: { code: string }
 }
-export default class Index extends React.Component<props, state> {
-	static getInitialProps({ req }) {
-		return {
-			title: 'Hello, world!'
-		}
-	}
 
-	state = {
-		eventName: '',
-		eventInfo: ''
-	}
+export default class Event extends React.Component<props, state> {
+  static getInitialProps() {
+    return {
+      title: 'Hello, world!'
+    }
+  }
 
-	firebaseCallback() {
+  state = {
+    eventName: '',
+    eventInfo: {code: ''}
+  }
 
-	}
+  componentDidMount() {
+    DB.ref('/eventInfo').on('value', (snap) => {
+      this.setState({eventInfo: snap.val()});
+    });
+  }
 
-	componentDidMount() {
-		DB.ref('/eventInfo').on('value', (snap) => {
-			this.setState({ eventInfo: snap.val() });
-			console.log(this.state.eventInfo)
-		});
-	}
-
-	handleChange = ({ target: { value } }) => {
-		this.setState({ eventName: value })
-	}
-
-	render() {
-		return (
-			<div>
-				{this.props.title}
-				<input onChange={this.handleChange} value={this.state.eventName} />
-				EventName: {this.state.eventName}
-			</div>
-		)
-	}
+  render() {
+    return (
+      <div>
+        {Object.keys(this.state.eventInfo).map(event => (<h5 key={event}>{this.state.eventInfo[event].code}</h5>))}
+      </div>
+    )
+  }
 }
