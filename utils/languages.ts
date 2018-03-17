@@ -1,4 +1,10 @@
-export const languages = [
+export type Language = {
+  icon: string
+  text: string
+  code: string
+  talk: string
+}
+export const languages: Language[] = [
   {
     "icon": "🇰🇷",
     "text": "Korean",
