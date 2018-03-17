@@ -1,4 +1,4 @@
-[
+export const languages = [
   {
     "icon": "🇰🇷",
     "text": "Korean",
