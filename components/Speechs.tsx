@@ -27,7 +27,7 @@ export class Speechs extends React.Component<props, state> {
   render() {
     return (
       <div>
-        {Object.keys(this.state.speechScripts).map((key) => (<h2 key={key}>{this.state.speechScripts[key].text}</h2>))}
+        {Object.keys(this.state.speechScripts).reverse().map((key) => (<h2 key={key}>{this.state.speechScripts[key].text}</h2>))}
       </div>
     )
   }
