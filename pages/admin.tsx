@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { DB, insertSpeeches } from '../utils/firebase'
-import { Balloon } from '../components/Balloon';
-import { languages } from '../utils/languages'
-import { getSpeechRecognitionObject } from '../utils/speechRecognition'
+import {DB, insertSpeeches} from '../utils/firebase'
+import {Balloon} from '../components/Balloon';
+import {languages} from '../utils/languages'
+import {getSpeechRecognitionObject} from '../utils/speechRecognition'
 
 interface props {
 }
+
 interface state {
   recognition?: SpeechRecognition
   originLang: string
@@ -26,6 +27,7 @@ interface state {
     }
   }
 }
+
 export default class Admin extends React.Component<props, state> {
   state = {
     recognition: undefined,
@@ -33,10 +35,10 @@ export default class Admin extends React.Component<props, state> {
     translatedLang: 'en',
     transcript: '',
     speech: {},
-    translated: { 'en': {}}
+    translated: {'en': {}}
   }
 
-	async componentDidMount() {
+  async componentDidMount() {
     const eventCode = window.location.hash.slice(1)
     if (!eventCode) window.location.replace('/')
 
@@ -45,28 +47,28 @@ export default class Admin extends React.Component<props, state> {
     recognition.lang = 'ko-KR'
     recognition.addEventListener('result', insertSpeeches(eventCode, this.state.originLang, this.handleChangeTransacript))
     recognition.addEventListener('end', recognition.start)
-    this.setState({ recognition })
+    this.setState({recognition})
 
-		DB.ref(`/events/${eventCode}`).on('value', (snap) => {
+    DB.ref(`/events/${eventCode}`).on('value', (snap) => {
       console.log(snap.val())
-			this.setState(snap.val());
+      this.setState(snap.val());
     });
     recognition.start()
   }
 
   handleChangeTransacript = (transcript) => {
-    this.setState({ transcript })
+    this.setState({transcript})
   }
 
-  handleChangeLanguage = ({ target: { name, value }}) => {
+  handleChangeLanguage = ({target: {name, value}}) => {
     if (name === 'originLang') {
       this.state.recognition.lang = languages.find(langunage => langunage.code === value).talk
     }
-    this.setState({ [name]: value })
+    this.setState({[name]: value})
   }
 
   render() {
-    const { originLang, translatedLang, speech, translated } = this.state
+    const {originLang, translatedLang, speech, translated} = this.state
     return (
       <div style={{display: 'grid', gridTemplateColumns: 'auto auto' }}>
         <div>
@@ -75,9 +77,9 @@ export default class Admin extends React.Component<props, state> {
             <option value='en'>English</option>
           </select>
           <ul>
-              {this.state.transcript && <Balloon key={'transcript'} text={this.state.transcript.replace('&#39;', `'`)} />}
+            {this.state.transcript && <Balloon key={'transcript'} text={this.state.transcript.replace('&#39;', `'`)}/>}
             {Object.keys(speech).reverse().map((key) => (
-              <Balloon key={key} text={speech[key].text.replace('&#39;', `'`)} />
+              <Balloon key={key} text={speech[key].text.replace('&#39;', `'`)}/>
             ))}
           </ul>
         </div>
