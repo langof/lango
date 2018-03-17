@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {DB} from '../utils/firebase'
+import {Speechs} from "../components/Speechs";
 
 interface props {
   title: string
@@ -31,6 +32,7 @@ export default class Event extends React.Component<props, state> {
   render() {
     return (
       <div>
+        <Speechs eventCode={"abc"}/>
         {this.state.eventInfo.map(({code}) => (<h5 key={code}>{code}</h5>))}
       </div>
     )
