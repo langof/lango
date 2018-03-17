@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export": "next export",
+    "serve": "serve out"
   },
   "dependencies": {
     "@google-cloud/translate": "^1.1.0",
@@ -12,7 +14,8 @@
     "firebase": "^4.11.0",
     "next": "^5.0.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "serve": "^6.5.3"
   },
   "devDependencies": {
     "@types/next": "^2.4.7",
