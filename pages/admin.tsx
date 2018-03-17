@@ -68,7 +68,7 @@ export default class Admin extends React.Component<props, state> {
     const { originLang, translatedLang, speech, translated } = this.state
     return (
       <div>
-        <div>
+        <div style={{ position: 'relative'}}>
           <select name='originLang' onChange={this.handleChangeLanguage} value={originLang}>
             {languages.map((language) => (<option value={language.code}>{language.icon} {language.text}</option>))}
             <option value='en'>English</option>
@@ -80,13 +80,13 @@ export default class Admin extends React.Component<props, state> {
             ))}
           </ul>
         </div>
-        <div>
+        <div style={{ position: 'relative'}}>
           <select name='translatedLang' onChange={this.handleChangeLanguage} value={translatedLang}>
             {languages.map((language) => (<option value={language.code}>{language.icon} {language.text}</option>))}
             <option value='en'>English</option>
           </select>
           <ul>
-          {Object.keys(translated[translatedLang]).reverse().map((key) => (
+          {translated[translatedLang] && Object.keys(translated[translatedLang]).reverse().map((key) => (
             <Balloon key={key} text={translated[translatedLang][key].text.replace('&#39;', `'`)} />
           ))}
           </ul>
