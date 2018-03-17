@@ -2,30 +2,30 @@ import * as React from 'react'
 import Link from 'next/link'
 
 interface props {
-  name: string
+  title: string
 }
 interface state {
-  toggle: boolean
+  eventName: string
 }
 export default class Index extends React.Component<props, state> {
   static getInitialProps({ req }) {
-    return { name: 'me!' }
+    return { title: 'Hello, world!' }
   }
 
   state = {
-    toggle: true
+    eventName: ''
   }
 
-  handleClick = () => {
-    this.setState({ toggle: !this.state.toggle })
+  handleChange = ({ target: { value }}) => {
+    this.setState({ eventName: value })
   }
-
-  getBackgroundColor = () => (this.state.toggle ? '#ff0000' : '#00ff00')
 
   render() {
     return (
-      <div style={{ backgroundColor: this.getBackgroundColor() }} onClick={this.handleClick}>
-        Click {this.props.name}.{' '}
+      <div>
+        {this.props.title}
+        <input onChange={this.handleChange} value={this.state.eventName}/>
+        EventName: {this.state.eventName}
         <Link href="/about">
           <a>About</a>
         </Link>
